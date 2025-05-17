@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  fullName    String
+  email       String   @unique
+  clerkUserId String?  @unique
+  createdAt   DateTime @default(now())
+  posts     Post[]
+  comments  Comment[]
+  votes     Vote[]
+}
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  createdAt   DateTime @default(now())
+  posts       Post[]
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  content     String?
+  imageUrl    String?
+  linkUrl     String?
+  createdAt   DateTime   @default(now())
+
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id])
+
+  communityId String
+  community   Community  @relation(fields: [communityId], references: [id])
+
+  comments    Comment[]
+  votes       Vote[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model Vote {
+  id      String   @id @default(cuid())
+  value   Int      // +1 for upvote, -1 for downvote
+  userId  String
+  postId  String
+
+  user    User     @relation(fields: [userId], references: [id])
+  post    Post     @relation(fields: [postId], references: [id])
+}
+
