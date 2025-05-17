@@ -75,7 +75,7 @@ async function main() {
   await prisma.post.create({
     data: {
       title: 'Best JavaScript frameworks in 2025',
-      content: 'Let&apos;s discuss the top JavaScript frameworks that are trending in 2025.',
+      content: 'Let us discuss the top JavaScript frameworks that are trending in 2025.',
       imageUrl: 'https://www.metizsoft.com/wp-content/uploads/2024/03/top-10-javascript-frameworks-1200x675.jpg',
       linkUrl: 'https://dev.to/this-is-learning/javascript-frameworks-heading-into-2025-hkb',
       communityId: techCommunity.id,
@@ -112,7 +112,7 @@ async function main() {
       },
       {
         title: 'Best Indian Street Foods to Try',
-        content: 'You can&apos;t miss these delicious street foods from India.',
+        content: 'You cannot miss these delicious street foods from India.',
         imageUrl: 'https://tildaricelive.s3.eu-central-1.amazonaws.com/wp-content/uploads/2024/07/11111642/Street-food-2440x1470.jpeg',
         linkUrl: 'https://intentionaldetours.com/indian-street-food/',
         communityId: foodCommunity.id,
